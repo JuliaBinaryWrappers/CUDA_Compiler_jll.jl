@@ -36,4 +36,5 @@ function __init__()
     )
 
     JLLWrappers.@generate_init_footer()
+    global cuda_version = v"12.9"
 end  # __init__()

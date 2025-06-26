@@ -1,4 +1,4 @@
-using Base.BinaryPlatforms
+    using Base.BinaryPlatforms
 
 using Libdl
 
@@ -127,3 +127,5 @@ function augment_platform!(platform::Platform)
 
     return platform
 end
+
+    const cuda_version = v"12.9"

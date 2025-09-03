@@ -2,7 +2,6 @@
 export libcudadevrt, libdevice, nvdisasm, nvlink, ptxas
 
 using CUDA_Driver_jll
-using CUDA_Runtime_jll
 JLLWrappers.@generate_wrapper_header("CUDA_Compiler")
 JLLWrappers.@declare_file_product(libcudadevrt)
 JLLWrappers.@declare_file_product(libdevice)

@@ -18,12 +18,12 @@ function __init__()
 
     JLLWrappers.@init_file_product(
         libdevice,
-        "share\\libdevice\\libdevice.10.bc",
+        "nvvm\\libdevice\\libdevice.10.bc",
     )
 
     JLLWrappers.@init_library_product(
         libnvvm,
-        "bin\\nvvm64_40_0.dll",
+        "nvvm\\bin\\nvvm64_40_0.dll",
         RTLD_LAZY | RTLD_DEEPBIND,
     )
 

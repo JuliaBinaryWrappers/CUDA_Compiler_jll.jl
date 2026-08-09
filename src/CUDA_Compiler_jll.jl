@@ -3,7 +3,6 @@ baremodule CUDA_Compiler_jll
 using Base
 using Base: UUID
 using LazyArtifacts
-using CUDA_Runtime_jll
 Base.include(@__MODULE__, joinpath("..", ".pkg", "platform_augmentation.jl"))
 import JLLWrappers
 

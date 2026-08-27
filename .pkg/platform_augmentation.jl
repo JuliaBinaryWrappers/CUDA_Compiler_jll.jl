@@ -231,13 +231,17 @@ end
 
 const cuda_toolkits = VersionNumber[v"11.4.4", v"11.5.2", v"11.6.2", v"11.7.1", v"11.8.0", v"12.0.1", v"12.1.1", v"12.2.2", v"12.3.2", v"12.4.1", v"12.5.1", v"12.6.3", v"12.8.1", v"12.9.1", v"13.0.2", v"13.1.1", v"13.2.1", v"13.3.1", v"13.4.0"]
 const cuda_prerelease_toolkits = VersionNumber[v"13.4.0"]
-const cuda_default_toolkit = v"13.3.0"
 # NOTE: this file is preceded by `toolkit_selection.jl` (shared with CUDA_Runtime_jll).
 
 function augment_platform!(platform::Platform)
     if !haskey(platform, "cuda")
-        default_tag = "$(cuda_default_toolkit.major).$(cuda_default_toolkit.minor)"
-        platform["cuda"] = something(cuda_toolkit_tag(), default_tag)
+        # use "none" when no CUDA toolkit could be selected (no driver, no preference), just
+        # like CUDA_Runtime_jll does. This makes `is_available()` false, instead of selecting
+        # a (lazy) artifact whose libraries would then be eagerly dlopen'ed at load time on
+        # a system that cannot use them (JuliaGPU/CUDA.jl#3242). Systems without a GPU that
+        # want to precompile or cross-compile should set the version preference explicitly.
+        # We can't just leave off the platform tag or Pkg would select *any* artifact.
+        platform["cuda"] = something(cuda_toolkit_tag(), "none")
     end
     BinaryPlatforms.set_compare_strategy!(platform, "cuda", cuda_comparison_strategy)
 

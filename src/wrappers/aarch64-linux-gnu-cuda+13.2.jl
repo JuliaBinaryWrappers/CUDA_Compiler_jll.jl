@@ -28,25 +28,25 @@ function __init__()
     JLLWrappers.@init_library_product(
         libnvJitLink,
         "lib/libnvJitLink.so",
-        nothing,
+        RTLD_LAZY | RTLD_DEEPBIND,
     )
 
     JLLWrappers.@init_library_product(
         libnvrtc,
         "lib/libnvrtc.so",
-        nothing,
+        RTLD_LAZY | RTLD_DEEPBIND,
     )
 
     JLLWrappers.@init_library_product(
         libnvrtc_builtins,
         "lib/libnvrtc-builtins.so",
-        nothing,
+        RTLD_LAZY | RTLD_DEEPBIND,
     )
 
     JLLWrappers.@init_library_product(
         libnvvm,
         "nvvm/lib64/libnvvm.so",
-        nothing,
+        RTLD_LAZY | RTLD_DEEPBIND,
     )
 
     JLLWrappers.@init_executable_product(

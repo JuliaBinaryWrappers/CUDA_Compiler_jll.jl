@@ -303,6 +303,18 @@ const cuda_cap_db = Dict{VersionNumber, NTuple{2, VersionNumber}}(
     v"12.1"  => (v"12.9",  v"99"),
 )
 
+# Jetson library ceilings. NVIDIA builds the Tegra (`linux-aarch64`) redistributables for
+# the JetPack generation they belong to: from CUDA 12.6 on, the Jetson cuBLAS binaries
+# only carry SASS for sm_87 (Orin) and newer, dropping Xavier (sm_7.2) even though the
+# toolkit's ptxas still targets it (`cuda_cap_db` says 12.9). Code CUDA.jl compiles itself
+# keeps working, but every vendor library fails with CUBLAS_STATUS_ARCH_MISMATCH or a
+# launch failure. So on Tegra hosts, a device additionally bounds the selection by the
+# newest Jetson redistributable that still ships its SASS. Measured with
+# `cuobjdump --list-elf` on the Jetson artifacts of CUDA_Runtime_jll.
+const jetson_cap_db = Dict{VersionNumber, NTuple{2, VersionNumber}}(
+    v"7.2"   => (v"9.2",   v"12.5"),
+)
+
 # select the best CUDA toolkit from `toolkits` (an ascending list of candidate versions)
 # for the driver and its devices, or `nothing` if the driver cannot be queried or no
 # candidate is compatible. Toolkits listed in `prerelease_toolkits` are never selected
@@ -359,6 +371,9 @@ function select_cuda_toolkit(toolkits::Vector{VersionNumber},
             # in our list is known to handle them.
             haskey(cuda_cap_db, cap) || return false
             lo, hi = cuda_cap_db[cap]
+            if is_tegra() && haskey(jetson_cap_db, cap)
+                lo, hi = jetson_cap_db[cap]
+            end
             lo <= minor <= hi
         end
         for cap in sort(unique(device_capabilities); rev=true)
@@ -457,7 +472,7 @@ function is_tegra()
     return false
 end
 
-const cuda_toolkits = VersionNumber[v"11.4.4", v"11.5.2", v"11.6.2", v"11.7.1", v"11.8.0", v"12.0.1", v"12.1.1", v"12.2.2", v"12.3.2", v"12.4.1", v"12.5.1", v"12.6.3", v"12.8.1", v"12.9.1", v"13.0.2", v"13.1.1", v"13.2.1", v"13.3.1", v"13.4.0"]
+const cuda_toolkits = VersionNumber[v"10.2.89", v"11.4.4", v"11.5.2", v"11.6.2", v"11.7.1", v"11.8.0", v"12.0.1", v"12.1.1", v"12.2.2", v"12.3.2", v"12.4.1", v"12.5.1", v"12.6.3", v"12.8.1", v"12.9.1", v"13.0.2", v"13.1.1", v"13.2.1", v"13.3.1", v"13.4.0"]
 const cuda_prerelease_toolkits = VersionNumber[v"13.4.0"]
 # NOTE: this file is preceded by `toolkit_selection.jl` (shared with CUDA_Runtime_jll).
 

@@ -472,8 +472,8 @@ function is_tegra()
     return false
 end
 
-const cuda_toolkits = VersionNumber[v"10.2.89", v"11.4.4", v"11.5.2", v"11.6.2", v"11.7.1", v"11.8.0", v"12.0.1", v"12.1.1", v"12.2.2", v"12.3.2", v"12.4.1", v"12.5.1", v"12.6.3", v"12.8.1", v"12.9.1", v"13.0.2", v"13.1.1", v"13.2.1", v"13.3.1", v"13.4.0"]
-const cuda_prerelease_toolkits = VersionNumber[v"13.4.0"]
+const cuda_toolkits = VersionNumber[v"10.2.89", v"11.4.4", v"11.5.2", v"11.6.2", v"11.7.1", v"11.8.0", v"12.0.1", v"12.1.1", v"12.2.2", v"12.3.2", v"12.4.1", v"12.5.1", v"12.6.3", v"12.8.1", v"12.9.1", v"13.0.2", v"13.1.1", v"13.2.1", v"13.3.1", v"13.4.1"]
+const cuda_prerelease_toolkits = VersionNumber[]
 # NOTE: this file is preceded by `toolkit_selection.jl` (shared with CUDA_Runtime_jll).
 
 function augment_platform!(platform::Platform)

@@ -5,13 +5,13 @@ using CUDA_Driver_jll
 JLLWrappers.@generate_wrapper_header("CUDA_Compiler")
 JLLWrappers.@declare_file_product(libcudadevrt)
 JLLWrappers.@declare_file_product(libdevice)
-JLLWrappers.@declare_library_product(libnvJitLink, "libnvJitLink.so.12")
+JLLWrappers.@declare_library_product(libnvvm, "libnvvm.so.4")
 JLLWrappers.@declare_library_product(libnvrtc, "libnvrtc.so.12")
 JLLWrappers.@declare_library_product(libnvrtc_builtins, "libnvrtc-builtins.so.12.8")
-JLLWrappers.@declare_library_product(libnvvm, "libnvvm.so.4")
+JLLWrappers.@declare_executable_product(ptxas)
 JLLWrappers.@declare_executable_product(nvdisasm)
 JLLWrappers.@declare_executable_product(nvlink)
-JLLWrappers.@declare_executable_product(ptxas)
+JLLWrappers.@declare_library_product(libnvJitLink, "libnvJitLink.so.12")
 function __init__()
     JLLWrappers.@generate_init_header(CUDA_Driver_jll)
     JLLWrappers.@init_file_product(
@@ -25,8 +25,8 @@ function __init__()
     )
 
     JLLWrappers.@init_library_product(
-        libnvJitLink,
-        "lib/libnvJitLink.so",
+        libnvvm,
+        "nvvm/lib64/libnvvm.so",
         RTLD_LAZY | RTLD_DEEPBIND,
     )
 
@@ -42,10 +42,9 @@ function __init__()
         RTLD_LAZY | RTLD_DEEPBIND,
     )
 
-    JLLWrappers.@init_library_product(
-        libnvvm,
-        "nvvm/lib64/libnvvm.so",
-        RTLD_LAZY | RTLD_DEEPBIND,
+    JLLWrappers.@init_executable_product(
+        ptxas,
+        "bin/ptxas",
     )
 
     JLLWrappers.@init_executable_product(
@@ -58,9 +57,10 @@ function __init__()
         "bin/nvlink",
     )
 
-    JLLWrappers.@init_executable_product(
-        ptxas,
-        "bin/ptxas",
+    JLLWrappers.@init_library_product(
+        libnvJitLink,
+        "lib/libnvJitLink.so",
+        RTLD_LAZY | RTLD_DEEPBIND,
     )
 
     JLLWrappers.@generate_init_footer()

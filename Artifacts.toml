@@ -761,3 +761,35 @@ os = "windows"
     [[CUDA_Compiler.download]]
     sha256 = "5648c5495483d06b563b5d096a1ab185d5fd065ba79e6626ad4f13c3bb74fe0e"
     url = "https://github.com/JuliaBinaryWrappers/CUDA_Compiler_jll.jl/releases/download/CUDA_Compiler-v0.6.3+2/CUDA_Compiler.v0.6.3.x86_64-w64-mingw32-cuda+13.4.tar.gz"
+[[CUDA_Compiler]]
+arch = "x86_64"
+cuda = "13.5"
+git-tree-sha1 = "07c506bab97fe84afb9ec5c5de08b026c2a18f5f"
+lazy = true
+libc = "glibc"
+os = "linux"
+
+    [[CUDA_Compiler.download]]
+    sha256 = "1c032cb1399d5c7bd7ed98b52c9c7daf47ef226d4791a9f7a13b332a8f2d86cf"
+    url = "https://github.com/JuliaBinaryWrappers/CUDA_Compiler_jll.jl/releases/download/CUDA_Compiler-v0.6.4+0/CUDA_Compiler.v0.6.4.x86_64-linux-gnu-cuda+13.5.tar.gz"
+[[CUDA_Compiler]]
+arch = "aarch64"
+cuda = "13.5"
+git-tree-sha1 = "234ba511a9e5fcb0dabf2f2ca90cdf3e2a83c4ef"
+lazy = true
+libc = "glibc"
+os = "linux"
+
+    [[CUDA_Compiler.download]]
+    sha256 = "1ab06de1fcce458c8e5e7e3c3a8d31173603ffdde9b513ad205ead3cdbad2bce"
+    url = "https://github.com/JuliaBinaryWrappers/CUDA_Compiler_jll.jl/releases/download/CUDA_Compiler-v0.6.4+0/CUDA_Compiler.v0.6.4.aarch64-linux-gnu-cuda+13.5.tar.gz"
+[[CUDA_Compiler]]
+arch = "x86_64"
+cuda = "13.5"
+git-tree-sha1 = "4a26d7707354832d0f2e429ff85e6596f268e502"
+lazy = true
+os = "windows"
+
+    [[CUDA_Compiler.download]]
+    sha256 = "e27ea47634fb0f7eed1b3ca3ba4638be97028ff16414d965ea25e2218d540dc6"
+    url = "https://github.com/JuliaBinaryWrappers/CUDA_Compiler_jll.jl/releases/download/CUDA_Compiler-v0.6.4+0/CUDA_Compiler.v0.6.4.x86_64-w64-mingw32-cuda+13.5.tar.gz"

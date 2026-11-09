@@ -1,4 +1,4 @@
-version = "0.6.4+0"
+version = "0.6.5+0"
 name = "CUDA_Compiler_jll"
 uuid = "d1e2174e-dfdc-576e-b43e-73b79eb1aca8"
 
